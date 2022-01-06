@@ -20,9 +20,6 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background-image: url("../image/background.svg");
-    background-size: cover;
-    background-repeat: no-repeat;
     height: 100%;
     width: 100%;
 }
@@ -34,7 +31,7 @@ body {
     font-size: 40px;
     padding: 15px;
     background-color: white;
-    border: 5px double rgb(190, 190, 190);
+    border: 5px double rgb(100, 100, 100);
 }
 
 .navbar h1 {
@@ -62,8 +59,53 @@ body {
 
 .menu {
     flex: 1 1 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
     background-color: rgb(235, 235, 235);
-    border-left: 5px double rgb(190, 190, 190);
+    border-left: 5px double rgb(100, 100, 100);
+}
+
+.menu p {
+    font-family: 'Notable', verdana, sans-serif;
+    font-size: 40px;
+    margin: 0;
+}
+
+.menu button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center; 
+    overflow: hidden;
+    gap: 10px;
+    min-width: 50%;
+    max-width: 50%;
+    background-color: white;
+    padding: 5px;
+    border-radius: 10px;
+    border: 3px solid black;
+} 
+
+.menu button:hover {
+    filter: invert(0.9);
+}
+
+.menu img {
+    height: 50px;
+    width: auto;
+}
+
+.menu span {
+    font-size: 20px;
+    margin: 0;
+    padding: 0;
+}
+
+.menu input {
+    text-align: center; 
+    width: 100%;
+    border-radius: 5px;
 }
 
 /* workspace */
@@ -73,8 +115,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    border-left: 5px double rgb(190, 190, 190);
-    border-right: 5px double rgb(190, 190, 190);
+    border-left: 5px double rgb(100, 100, 100);
+    border-right: 5px double rgb(100, 100, 100);
 }
 
 /* grid container */
@@ -83,13 +125,11 @@ body {
     display: grid;
     grid-template-columns: repeat(16, 1fr);
     grid-template-rows: repeat(16, 1fr);
-    max-width: 700px;
-    min-width: 700px;
-    max-height: 700px;
-    min-height: 700px;
+    min-width: 45%;
+    aspect-ratio: 1 / 1;
     overflow: hidden;
     background-color: white;
-    border: 5px double rgb(190, 190, 190)
+    border: 5px double black;
 }
 
 /* grid element -- will be add in js */
@@ -98,11 +138,15 @@ body {
     border: 1px solid black;
 }
 
+.grid:hover {
+    border: 3px solid black;
+}
+
 /* footer */
 
 .footer {
     background-color: white;
-    border: 5px double rgb(190, 190, 190);    
+    border: 5px double rgb(100, 100, 100);    
 }
 
 .footer p {
