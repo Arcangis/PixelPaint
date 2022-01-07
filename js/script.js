@@ -2,10 +2,11 @@ let gridContainer;
 let gridElement;
 let gridHovered;
 let gridSize = 16;
-let ancientToolFunction;
+
+let selectedColor = "#000000";
 
 window.onload = function(){
-   
+
     createGrid(gridSize);
     menuButtonPressed();
 
@@ -32,51 +33,33 @@ function createGrid(gridSize){
 }
 
 function menuButtonPressed(){ 
-
-    /* tool functions */
-    const penFunction = function(grid){
-        console.log("pen");
-        grid.currentTarget.style.backgroundColor = "black";
-    }
-
-    const rainbowFunction = function(grid){
-        console.log("colored");
-        grid.currentTarget.style.backgroundColor = "black";
-    }
-
-    const eraserFunction = function(grid){
-        console.log("eraser");
-        grid.currentTarget.style.backgroundColor = "white";
-    }
-
-    const bucketFunction = function(grid){
-        console.log("bucket");
-        grid.style.backgroundColor = "black";
-    }
-
-    const clearFunction = function(grid){
-        console.log("clear");
-        grid.style.backgroundColor = "white";
-    }
     
     document.querySelector("#pen").addEventListener("click", () => {
-        mousePressed(penFunction);
+        mousePressed( (grid) => {
+            grid.currentTarget.style.backgroundColor = selectedColor;
+        });
     });
 
-    document.querySelector("#rainbow").addEventListener("click", () => {
-        mousePressed(rainbowFunction);
+    document.querySelector("#select-color").addEventListener("click", () => {
+        selectedColor = document.getElementById("input-color").value;      
     });
 
     document.querySelector("#eraser").addEventListener("click", () => {
-        mousePressed(eraserFunction);
+        mousePressed( (grid) => {
+            grid.currentTarget.style.backgroundColor = "white";
+        });
     });
 
     document.querySelector("#bucket").addEventListener("click", () => {
-        gridHovered.forEach(bucketFunction); 
+        gridHovered.forEach( (grid) => {
+            grid.style.backgroundColor = selectedColor;    
+        }); 
     });
 
     document.querySelector("#clear").addEventListener("click", () => {
-        gridHovered.forEach(clearFunction);
+        gridHovered.forEach( (grid) => {
+            grid.style.backgroundColor = "white";    
+        });
     });
 
     document.getElementById("grid-size").addEventListener("click", (e) => {
@@ -94,36 +77,28 @@ function menuButtonPressed(){
 
 function mousePressed(toolFunction){
 
-    console.log("pressed")
+    document.addEventListener("mousedown", mouseListennerFunction(toolFunction,true));
+    document.addEventListener("mouseup", mouseListennerFunction(toolFunction,false));   
 
-    /*
-    if (!!ancientToolFunction){
-        gridContainer.removeEventListener("mousedown", mouseDownFunction(ancientToolFunction));
-        gridContainer.removeEventListener("mouseup", mouseUpFunction(ancientToolFunction));
-        console.log("im deaf")
+}
+
+function mouseListennerFunction(toolFunction, selectedDown){
+        
+    if (selectedDown){
+        return mouseDown = function (){
+            
+            gridHovered.forEach((grid) => {
+                grid.addEventListener("click", toolFunction);
+                grid.addEventListener("mousemove", toolFunction);
+            }); 
+             
+        }
     }
-    */
-  
-    ancientToolFunction = toolFunction;
-
-    gridContainer.addEventListener("mousedown", mouseDownFunction(toolFunction));
-    gridContainer.addEventListener("mouseup", mouseUpFunction(toolFunction));   
-    console.log("im listenning?")
+    
+    return  mouseUp = function (){
+    
+        gridHovered.forEach((grid) => {
+            grid.removeEventListener("mousemove", toolFunction);
+        }); 
+    }
 }
-
-
-function mouseDownFunction(toolFunction){
-    console.log("mousedown")
-    gridHovered.forEach((grid) => {
-        grid.addEventListener("click", toolFunction);
-        grid.addEventListener("mousemove", toolFunction);
-    });  
-}
-
-
-function mouseUpFunction(toolFunction){
-    console.log("mouseUp")
-    gridHovered.forEach((grid) => {
-        grid.removeEventListener("mousemove", toolFunction);
-    });
-} 
