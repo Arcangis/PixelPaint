@@ -108,6 +108,16 @@ body {
     border-radius: 5px;
 }
 
+.menu #input-color {
+    height: 50px;
+    width: 50px;
+    padding: 0;
+}
+
+input[type="color" i] {
+    background-color: black;
+}
+
 /* workspace */
 
 .workspace {
