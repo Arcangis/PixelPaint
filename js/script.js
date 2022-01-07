@@ -1,9 +1,11 @@
 let gridContainer;
 let gridElement;
+let gridHovered;
 let gridSize = 16;
+let ancientToolFunction;
 
 window.onload = function(){
-
+   
     createGrid(gridSize);
     menuButtonPressed();
 
@@ -24,35 +26,36 @@ function createGrid(gridSize){
         gridElement.classList.add("grid");
         gridContainer.appendChild(gridElement);
     }
+
+    gridHovered = document.querySelectorAll(".grid");
+
 }
 
 function menuButtonPressed(){ 
 
-    const gridHovered = document.querySelectorAll(".grid");
-
     /* tool functions */
     const penFunction = function(grid){
-        console.log("penis");
+        console.log("pen");
         grid.currentTarget.style.backgroundColor = "black";
     }
 
     const rainbowFunction = function(grid){
-        console.log("colrooxe");
+        console.log("colored");
         grid.currentTarget.style.backgroundColor = "black";
     }
 
     const eraserFunction = function(grid){
-        console.log("eraszerad");
+        console.log("eraser");
         grid.currentTarget.style.backgroundColor = "white";
     }
 
     const bucketFunction = function(grid){
-        console.log("bbubuz");
+        console.log("bucket");
         grid.style.backgroundColor = "black";
     }
 
     const clearFunction = function(grid){
-        console.log("claer");
+        console.log("clear");
         grid.style.backgroundColor = "white";
     }
     
@@ -76,29 +79,51 @@ function menuButtonPressed(){
         gridHovered.forEach(clearFunction);
     });
 
-    document.querySelector("#grid-size").addEventListener("click", () => {
+    document.getElementById("grid-size").addEventListener("click", (e) => {
+        
         gridSize = document.querySelector("#grid-input").value;
-        if (gridSize <= 0)
+        
+        if (gridSize < 4)
             gridSize = 4;
         else if (gridSize > 64)
             gridSize = 64;
-        createGrid(gridSize);    
+        
+            createGrid(gridSize);    
     });
 }
 
 function mousePressed(toolFunction){
 
-    const gridHovered = document.querySelectorAll(".grid");
+    console.log("pressed")
 
-    document.addEventListener("mousedown", () => {
-        gridHovered.forEach((grid) => {
-            grid.addEventListener("click", toolFunction);
-            grid.addEventListener("mousemove", toolFunction);
-        });  
-    });
-    document.addEventListener("mouseup", () => {
-        gridHovered.forEach((grid) => {
-            grid.removeEventListener("mousemove", toolFunction);
-        });
-    });        
+    /*
+    if (!!ancientToolFunction){
+        gridContainer.removeEventListener("mousedown", mouseDownFunction(ancientToolFunction));
+        gridContainer.removeEventListener("mouseup", mouseUpFunction(ancientToolFunction));
+        console.log("im deaf")
+    }
+    */
+  
+    ancientToolFunction = toolFunction;
+
+    gridContainer.addEventListener("mousedown", mouseDownFunction(toolFunction));
+    gridContainer.addEventListener("mouseup", mouseUpFunction(toolFunction));   
+    console.log("im listenning?")
 }
+
+
+function mouseDownFunction(toolFunction){
+    console.log("mousedown")
+    gridHovered.forEach((grid) => {
+        grid.addEventListener("click", toolFunction);
+        grid.addEventListener("mousemove", toolFunction);
+    });  
+}
+
+
+function mouseUpFunction(toolFunction){
+    console.log("mouseUp")
+    gridHovered.forEach((grid) => {
+        grid.removeEventListener("mousemove", toolFunction);
+    });
+} 
