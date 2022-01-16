@@ -32,47 +32,48 @@ function createGrid(gridSize){
 
 }
 
-function selectColor() {
-    selectedColor = document.getElementById("input-color").value;         
-}
-
-function selectGridSize() {
-        
-    gridSize = document.querySelector("#grid-input").value;
-    
-    if (gridSize < 4)
-        gridSize = 4;
-    else if (gridSize > 64)
-        gridSize = 64;
-    
-        createGrid(gridSize);    
-
-    }
-
 function menuButtonPressed(){ 
     
     document.querySelector("#pen").addEventListener("click", () => {
         mousePressed( (grid) => {
+            console.log("pen")
             grid.currentTarget.style.backgroundColor = selectedColor;
         });
     });
-    
+
+    document.querySelector("#input-color").addEventListener("change", (event) => {
+        console.log("color")
+        selectedColor = event.target.value;      
+    });
+
     document.querySelector("#eraser").addEventListener("click", () => {
         mousePressed( (grid) => {
+            console.log("eraser")
             grid.currentTarget.style.backgroundColor = "white";
         });
     });
 
     document.querySelector("#bucket").addEventListener("click", () => {
         gridHovered.forEach( (grid) => {
+            console.log("bucket")
             grid.style.backgroundColor = selectedColor;    
         }); 
     });
 
     document.querySelector("#clear").addEventListener("click", () => {
         gridHovered.forEach( (grid) => {
+            console.log("clear")
             grid.style.backgroundColor = "white";    
         });
+    });
+
+    document.querySelector("#grid-input").addEventListener("change", (event) => {
+        
+        gridSize = event.target.value;
+        
+        (gridSize < 4) ? gridSize = 4 : (gridSize > 64) ? gridSize = 64 : gridSize = gridSize;
+        
+        createGrid(gridSize);    
     });
 }
 
