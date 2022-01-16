@@ -32,6 +32,23 @@ function createGrid(gridSize){
 
 }
 
+function selectColor() {
+    selectedColor = document.getElementById("input-color").value;         
+}
+
+function selectGridSize() {
+        
+    gridSize = document.querySelector("#grid-input").value;
+    
+    if (gridSize < 4)
+        gridSize = 4;
+    else if (gridSize > 64)
+        gridSize = 64;
+    
+        createGrid(gridSize);    
+
+    }
+
 function menuButtonPressed(){ 
     
     document.querySelector("#pen").addEventListener("click", () => {
@@ -39,11 +56,7 @@ function menuButtonPressed(){
             grid.currentTarget.style.backgroundColor = selectedColor;
         });
     });
-
-    document.querySelector("#select-color").addEventListener("click", () => {
-        selectedColor = document.getElementById("input-color").value;      
-    });
-
+    
     document.querySelector("#eraser").addEventListener("click", () => {
         mousePressed( (grid) => {
             grid.currentTarget.style.backgroundColor = "white";
@@ -60,18 +73,6 @@ function menuButtonPressed(){
         gridHovered.forEach( (grid) => {
             grid.style.backgroundColor = "white";    
         });
-    });
-
-    document.getElementById("grid-size").addEventListener("click", (e) => {
-        
-        gridSize = document.querySelector("#grid-input").value;
-        
-        if (gridSize < 4)
-            gridSize = 4;
-        else if (gridSize > 64)
-            gridSize = 64;
-        
-            createGrid(gridSize);    
     });
 }
 
