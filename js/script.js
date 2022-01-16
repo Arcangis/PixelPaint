@@ -5,6 +5,9 @@ let gridSize = 16;
 
 let selectedColor = "#000000";
 
+let toolFunction;
+let ancientToolFunction;
+
 window.onload = function(){
 
     createGrid(gridSize);
@@ -35,10 +38,11 @@ function createGrid(gridSize){
 function menuButtonPressed(){ 
     
     document.querySelector("#pen").addEventListener("click", () => {
-        mousePressed( (grid) => {
-            console.log("pen")
+        ancientToolFunction = toolFunction;
+        toolFunction = (grid) => {
             grid.currentTarget.style.backgroundColor = selectedColor;
-        });
+        };
+        mousePressed();
     });
 
     document.querySelector("#input-color").addEventListener("change", (event) => {
@@ -47,22 +51,21 @@ function menuButtonPressed(){
     });
 
     document.querySelector("#eraser").addEventListener("click", () => {
-        mousePressed( (grid) => {
-            console.log("eraser")
+        ancientToolFunction = toolFunction;
+        toolFunction = (grid) => {
             grid.currentTarget.style.backgroundColor = "white";
-        });
+        };
+        mousePressed();
     });
 
     document.querySelector("#bucket").addEventListener("click", () => {
         gridHovered.forEach( (grid) => {
-            console.log("bucket")
             grid.style.backgroundColor = selectedColor;    
         }); 
     });
 
     document.querySelector("#clear").addEventListener("click", () => {
         gridHovered.forEach( (grid) => {
-            console.log("clear")
             grid.style.backgroundColor = "white";    
         });
     });
@@ -77,30 +80,30 @@ function menuButtonPressed(){
     });
 }
 
-function mousePressed(toolFunction){
+function mousePressed(){
 
-    document.addEventListener("mousedown", mouseListennerFunction(toolFunction,true));
-    document.addEventListener("mouseup", mouseListennerFunction(toolFunction,false));   
+    document.addEventListener("mousedown", mouseDown);
+    document.addEventListener("mouseup", mouseUp);  
+   
+    gridHovered.forEach((grid) => {
+        grid.removeEventListener("click", ancientToolFunction);
+    });
 
 }
 
-function mouseListennerFunction(toolFunction, selectedDown){
-        
-    if (selectedDown){
-        return mouseDown = function (){
+function mouseDown(){
             
-            gridHovered.forEach((grid) => {
-                grid.addEventListener("click", toolFunction);
-                grid.addEventListener("mousemove", toolFunction);
-            }); 
+    gridHovered.forEach((grid) => {
+        grid.addEventListener("click", toolFunction);
+        grid.addEventListener("mousemove", toolFunction);
+    }); 
              
-        }
-    }
+}
+
     
-    return  mouseUp = function (){
+function mouseUp (){
     
-        gridHovered.forEach((grid) => {
-            grid.removeEventListener("mousemove", toolFunction);
-        }); 
-    }
+    gridHovered.forEach((grid) => {
+        grid.removeEventListener("mousemove", toolFunction);
+    }); 
 }
