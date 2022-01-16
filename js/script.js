@@ -46,8 +46,7 @@ function menuButtonPressed(){
     });
 
     document.querySelector("#input-color").addEventListener("change", (event) => {
-        console.log("color")
-        selectedColor = event.target.value;      
+        selectedColor = event.target.value;   
     });
 
     document.querySelector("#eraser").addEventListener("click", () => {
