@@ -81,14 +81,21 @@ body {
     gap: 10px;
     min-width: 50%;
     max-width: 50%;
+    min-height: 10%;
     background-color: white;
     padding: 5px;
     border-radius: 10px;
     border: 3px solid black;
+    overflow: hidden;
 } 
 
-.menu button:hover {
+#pen:hover, #eraser:hover, #bucket:hover, #clear:hover, #grid-size:hover{
     filter: invert(0.9);
+}
+
+#select-color:hover {
+    background-color: black;
+    color: white;
 }
 
 .menu img {
@@ -135,7 +142,7 @@ input[type="color" i] {
     display: grid;
     grid-template-columns: repeat(16, 1fr);
     grid-template-rows: repeat(16, 1fr);
-    min-width: 45%;
+    min-height: 95%;
     aspect-ratio: 1 / 1;
     overflow: hidden;
     background-color: white;
